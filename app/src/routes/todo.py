@@ -1,29 +1,32 @@
 from fastapi import FastAPI, APIRouter, HTTPException
-from connection_db import collection
-from database.schemas import all_tasks
-from database.models import Todo
+from src.config.connection_db import collection
+from src.serializers.todo_serializer import all_tasks, task
+from src.models.todo_model import Todo
 from bson import ObjectId
 from datetime import datetime
 
-app = FastAPI()
-router = APIRouter()
+todo_root = APIRouter()
 
-
-@router.get("/")
+@todo_root.get("/")
 async def get_all_todos():
     data = collection.find({"is_deleted": False})
     return all_tasks(data)
 
-@router.post("/")
+@todo_root.get("/{task_id}")
+async def get_todo(task_id: str):
+    data = collection.find_one({"_id" : ObjectId(task_id) })
+    return task(data)
+
+@todo_root.post("/")
 async def create_task(new_task: Todo):
 
     try:
         response = collection.insert_one(dict(new_task))
-        return {"status_code": 200, "id": str(response.inserted_id)}
+        return {"status_code": 200, "message": "Todo Posted Successfully",  "id": str(response.inserted_id)}
     except Exception as e:
         return HTTPException(status_code=500, detail=f"Some error occured {e}")
 
-@router.put("/{task_id}")
+@todo_root.put("/{task_id}")
 async def update_task(task_id: str, updated_task: Todo):
     try:
 
@@ -53,7 +56,7 @@ async def update_task(task_id: str, updated_task: Todo):
         return HTTPException(status_code=500, detail=f"Some error occured {e}")
 
 
-@router.delete("/{task_id}")
+@todo_root.delete("/{task_id}")
 async def delete_task(task_id: str):
     try:
 
@@ -75,5 +78,3 @@ async def delete_task(task_id: str):
         return {"status_code": 200, "message": "Task deleted Successfully"}
     except Exception as e:
         return HTTPException(status_code=500, detail=f"Some error occured {e}")
-
-app.include_router(router)

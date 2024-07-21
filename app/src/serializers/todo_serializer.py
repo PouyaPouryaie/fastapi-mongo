@@ -1,4 +1,5 @@
-def individual_data(todo) -> dict:
+# one todo
+def task(todo) -> dict:
     return {
         "id": str(todo["_id"]),
         "title": todo["title"],
@@ -6,5 +7,6 @@ def individual_data(todo) -> dict:
         "status": todo["is_completed"]
     }
 
-def all_tasks(todos):
-    return [individual_data(todo) for todo in todos]
+# all todos
+def all_tasks(todos) -> list:
+    return [task(todo) for todo in todos]

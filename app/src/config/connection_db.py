@@ -1,6 +1,7 @@
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from .logger import logger
 
 uri = "mongodb+srv://pouya_pouryaei:test_1234@cluster0.flf1pfz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
@@ -8,11 +9,11 @@ uri = "mongodb+srv://pouya_pouryaei:test_1234@cluster0.flf1pfz.mongodb.net/?retr
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 # Send a ping to confirm a successful connection
-# try:
-#     client.admin.command('ping')
-#     print("Pinged your deployment. You successfully connected to MongoDB!")
-# except Exception as e:
-#     print(e)
+try:
+    client.admin.command('ping')
+    logger.info("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 
-db = client.todo_db
+db = client.Todo_db
 collection = db["todo_data"] # create collection
