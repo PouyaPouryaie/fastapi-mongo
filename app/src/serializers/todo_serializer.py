@@ -1,5 +1,5 @@
 # one todo
-def task(todo) -> dict:
+def task_response(todo) -> dict:
     return {
         "id": str(todo["_id"]),
         "title": todo["title"],
@@ -9,4 +9,4 @@ def task(todo) -> dict:
 
 # all todos
 def all_tasks(todos) -> list:
-    return [task(todo) for todo in todos]
+    return [task_response(todo) for todo in todos]

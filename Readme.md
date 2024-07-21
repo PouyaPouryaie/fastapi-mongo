@@ -19,5 +19,5 @@ This project demonstrates a simple FastAPI application that connects to a MongoD
 
 3. Start Application
     ```bash
-    fastapi dev src/main.py
+    fastapi dev app/main.py
     ```

@@ -6,7 +6,16 @@ entry_root = APIRouter()
 @entry_root.get("/")
 def apiRunning():
     res = {
-        "status" : "ok" ,
         "message" : "Api is runinng"
     }
-    return res
+    return build_response(200, res)
+
+
+def build_response(status_code, body):
+    return {
+        'status_code': status_code,
+        'headers': {
+            'Content-type':'application/json'
+        },
+        'body':body
+    }
