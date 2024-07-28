@@ -22,10 +22,12 @@ async def get_todo(task_id: str):
     if not ObjectId.is_valid(task_id):
         raise CustomException(400, message="Invalid task ID format")
     
-    data = collection.find_one({"_id" : ObjectId(task_id) })
-    task = task_response(data)
-
-    return build_response(200, task)
+    data = collection.find_one({"_id" : ObjectId(task_id), "is_deleted": False})
+    if data is not None:
+        task = task_response(data)
+        return build_response(200, task)
+    else:
+        raise CustomException(404, message=f"Task with ID {task_id} not found or is deleted")
 
 @todo_root.post("/")
 async def create_task(new_task: Todo):

@@ -17,7 +17,7 @@ def not_found_exception_handler(request: Request, exc: HTTPException):
 async def unicorn_exception_handler(request: Request, exc: CustomException):
     return JSONResponse(
         status_code=exc.statusCode,
-        content={"message": f"Oops! {exc.message} did something."},
+        content={"message": f"Oops! {exc.message}."},
     )
 
 

@@ -21,3 +21,12 @@ This project demonstrates a simple FastAPI application that connects to a MongoD
     ```bash
     fastapi dev app/main.py
     ```
+## Running Test
+1. Run All Test
+    ```bash
+    pytest -v -s
+    ```
+2. Run Specific Scenario
+    ```bash
+    pytest -v -s tests/test_todo.py::<test_scenario_name>
+    ```
