@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from starlette.requests import Request
 from starlette.responses import JSONResponse
-from src.routes.api import router
-from src.config.logger import logger
-from app_exception import CustomException
+from app.src.routes.api import router
+from app.src.config.logger import logger
+from .app_exception import CustomException
 
 app = FastAPI()
 

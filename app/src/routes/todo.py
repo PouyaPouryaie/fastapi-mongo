@@ -1,13 +1,13 @@
 from fastapi import FastAPI, APIRouter, HTTPException
-from src.config.connection_db import collection
-from src.serializers.todo_serializer import all_tasks, task_response
-from src.models.todo_model import Todo
+from app.src.config.connection_db import collection
+from app.src.serializers.todo_serializer import all_tasks, task_response
+from app.src.models.todo_model import Todo
 from bson import ObjectId
 from datetime import datetime
+from app.app_exception import CustomException
 import sys
-sys.path.append("../../../")
-from app_exception import CustomException
 
+sys.path.append("../../../")
 todo_root = APIRouter()
 
 @todo_root.get("/")
